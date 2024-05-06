@@ -16,4 +16,21 @@ public class PageController {
         System.out.println("Home page handeler");
         return "home";
     }
+
+    // About Mapping
+
+    @RequestMapping("/about")
+    public String aboutPage(Model model) {
+        //model.addAttribute("isUserLogin", false);
+        System.out.println("This is the about page");
+        return "about";
+    }
+
+    // Services Page
+    @RequestMapping("/service")
+    public String servicePage(Model model) {
+        System.out.println("This is the service page");
+        return "service";
+    }
+
 }
