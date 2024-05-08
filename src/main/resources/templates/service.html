@@ -6,6 +6,14 @@
     <title>Document</title>
 </head>
 <body>
-    <h1> This is services Page </h1>
+    <p> This is About Page </p>
+    <h1>welcome the Services page </h1>
+    <hr/>
+    
+    <!-- This is page fragment -->
+    <div th:replace="~{base :: parent(~{::section})}"></div>
+    <section>
+        <p> This is dynamic page through base parent...</p>
+    </section>
 </body>
 </html>

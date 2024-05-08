@@ -11,8 +11,14 @@
     <hr/>
     
     <!-- This is page fragment -->
-    
 
-
+    <div class="host-tag" th:replace="${isUserLogin} ? ~{base :: parent(~{::section})} : ~{base :: test}">
+     <section>
+        <h1> User is login </h1>
+        <h1> This is dynamic content</h1>
+        <p> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquid, sit.</p>
+        <button> Click On Here </button>
+     </section>
+    </div>
 </body>
 </html>
