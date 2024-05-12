@@ -1,19 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" th:replace="~{base :: parent(~{::#content}, ~{::title}, ~{::script})}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title> Service Page </title>
 </head>
 <body>
-    <p> This is About Page </p>
-    <h1>welcome the Services page </h1>
-    <hr/>
-    
-    <!-- This is page fragment -->
-    <div th:replace="~{base :: parent(~{::section})}"></div>
-    <section>
-        <p> This is dynamic page through base parent...</p>
+    <section id="content">
+        <h1> Welcome to services page </h1>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam, explicabo.
     </section>
+    <script>
+        Console.log("Service Page");
+    </script>
 </body>
 </html>

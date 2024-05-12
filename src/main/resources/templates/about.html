@@ -1,24 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" th:replace="~{base :: parent(~{::#content},~{::title},~{::script})}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title> About Page</title>
 </head>
 <body>
-    <p> This is About Page </p>
-    <h1>welcome the about page </h1>
-    <hr/>
-    
-    <!-- This is page fragment -->
-
-    <div class="host-tag" th:replace="${isUserLogin} ? ~{base :: parent(~{::section})} : ~{base :: test}">
-     <section>
-        <h1> User is login </h1>
-        <h1> This is dynamic content</h1>
-        <p> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquid, sit.</p>
-        <button> Click On Here </button>
-     </section>
+    <div id="content">
+    <h1> Welcome to about page </h1>
+    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ratione, illum!
     </div>
+    <script>
+        Console.log("About page");
+    </script>
 </body>
 </html>
