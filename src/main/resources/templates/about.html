@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" th:replace="~{base :: parent(~{::#content},~{::title},~{::script})}">
+<html lang="en" 
+    th:replace="~{base :: parent(~{::#content},~{::title},~{::script},)}">
 <head>
     <title> About Page</title>
 </head>
@@ -9,7 +10,10 @@
     Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ratione, illum!
     </div>
     <script>
-        Console.log("About page");
+        console.log("About page");
+    </script>
+    <script>
+        console.log("second about page");
     </script>
 </body>
 </html>

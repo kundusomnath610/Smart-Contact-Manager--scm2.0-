@@ -9,15 +9,22 @@ xmlns:th="http://www.thymeleaf.org">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" 
 </head>
 <body>
+    <!-- Common Header-->
+    <div data-th-replace="navbar :: navbar"> </div>
+
     <!-- Main content -->
-    <section data-th-replace="${content}">
+    <div class="p-4">
+        <section data-th-replace="${content}"></section>
+        <!--common footer-->
+        <footer>
+            Footer: Learn code class GfG
+        </footer>
+    </div>
 
-    </section>
-
-    base page Content 
+   
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js">
-    <th:block data-th-replace="${script}"></th:block>
     </script>
+    <th:block data-th-replace="${script}"></th:block>
 
 </body>
 </html>
