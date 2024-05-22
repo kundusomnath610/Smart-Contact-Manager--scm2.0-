@@ -29,7 +29,7 @@ public class PageController {
     }
 
     // Services Page
-    @RequestMapping("/service")
+    @RequestMapping("/services")
     public String servicePage(Model model) {
         System.out.println("This is the service page");
         return "service";
@@ -54,8 +54,7 @@ public class PageController {
     public String register() {
         System.out.println("This is register page");
         return new String("register");
+        
     }
-    
-    
     
 }
