@@ -4,7 +4,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.scm.forms.UserForm;
+
+import org.springframework.web.bind.annotation.RequestMethod;
+
 
 
 @Controller
@@ -51,10 +57,26 @@ public class PageController {
 
     //register..
     @GetMapping("/register")
-    public String register() {
-        System.out.println("This is register page");
-        return new String("register");
-        
+    public String register(Model model) {
+
+        UserForm userForm = new UserForm();
+        model.addAttribute("userForm", userForm);
+        // userForm.setName("Somnath");
+        // userForm.setAbout("this is about by myself and others");
+        // userForm.setPhoneNumber("123456");
+        return "register";
     }
-    
+
+    // Processing regiester request...
+    @RequestMapping(value = "/do-register", method = RequestMethod.POST)
+    public String processRegister(@ModelAttribute UserForm userForm) {
+        System.out.println("Processing registration");
+        // fetch form data
+        // UserForm
+        System.out.println(userForm);
+        return "redirect:/register";
+    }
+
+
+
 }
