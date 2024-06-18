@@ -1,13 +1,16 @@
 package com.scm.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestParam;
+//import org.springframework.web.bind.annotation.RequestParam;
 
+import com.scm.entities.User;
 import com.scm.forms.UserForm;
+import com.scm.services.UserServices;
 
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -15,6 +18,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class PageController {
+
+    @Autowired
+    private UserServices userServices;
 
     @RequestMapping("/home")
     public String home(Model model) {
@@ -73,6 +79,23 @@ public class PageController {
         System.out.println("Processing registration");
         // fetch form data
         // UserForm
+
+        //Save the data user
+
+        User user = User.builder()
+        .name(userForm.getName())
+        .email(userForm.getEmail())
+        .password(userForm.getPassword())
+        .about(userForm.getAbout())
+        .phoneNumber(userForm.getPhoneNumber())
+        .profilePic(
+            "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pexels.com%2Fsearch%2Fprofile%2520picture%2F&psig=AOvVaw1cp80haAljDtmpbwnZTC5F&ust=1718792946299000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCIDdnOv45IYDFQAAAAAdAAAAABAE")
+        .build();
+
+        User savedUser = userServices.savaUser(user);
+
+        System.out.println("User saved");
+
         System.out.println(userForm);
         return "redirect:/register";
     }

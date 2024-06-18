@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.scm.entities.User;
+import com.scm.entities.User.UserBuilder;
 import com.scm.helpers.ResourceNotFoundException;
 import com.scm.repositires.Userrepo;
 import com.scm.services.UserServices;
@@ -27,7 +28,7 @@ public class UserServicesImpl implements UserServices {
     public User savaUser(User user) {
         // User ID Genarate Automatically
         String userId = UUID.randomUUID().toString();
-
+        user.setUserId(userId);
 
         return userrepo.save(user);
     }
