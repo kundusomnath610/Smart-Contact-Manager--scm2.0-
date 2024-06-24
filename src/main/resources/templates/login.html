@@ -6,8 +6,70 @@
 </head>
 <body>
     <div id="content">
-    <h1> Welcome to Login page </h1>
-    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ratione, illum!
+        <div class="grid grid-cols-12">
+            <div class="col-span-4 md:col-span-2 lg:col-span-3 xl:col-span-4"></div>
+            <div class="col-span-12 md:col-span-8 lg:col-span-6 xl:col-span-4">
+
+                <!-- Card for Register -->
+                <div class="block p-6 border-t-[12px] border-lime-400 bg-white rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700">
+
+                    <!-- Message Here -->
+                    <div data-th-replace="message :: messagebox"></div>
+
+                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Login Here </h5>
+                    <p class="font-normal text-gray-700 dark:text-gray-400">Login on Cloud....</p>
+
+                    <!-- This is My Form Start -->
+                    <form 
+                    method="post"
+                    data-th-action="@{'/authenticate'}"
+                    class="mt-5" 
+                    
+                    
+                    >
+
+
+                        <!-- User name -->
+                        <div class="mb-3">
+                            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                User Name
+                            </label>
+                            <input type="text" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Type Your Email Here" required />
+                        </div>
+
+
+                        <!-- For Password -->
+                        <div class="mb-3">
+                            <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                Password
+                            </label>
+                            <input type="password" name="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Type your password" required />
+                        </div>
+                        <!-- <p 
+                        data-th-if="${#fields.hasErrors('password')}"
+                        data-th-errors="*{password}"
+                        class="text-red-500 py-2"> 
+                        Password is requried** 
+                        </p> -->
+
+
+
+
+
+                        <!-- Buttons -->
+                        <div class="mb-3 flex justify-center space-x-5">
+                            <button type="submit" class="px-3 py-3 rounded bg-gray-600 text-white dark:bg-blue-500">
+                                Login
+                            </button>
+
+                            <button type="reset" class="px-3 py-3 rounded bg-orange-500 text-white dark:bg-orange-500">
+                                Reset
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
     <script>
         console.log("Login Page");
