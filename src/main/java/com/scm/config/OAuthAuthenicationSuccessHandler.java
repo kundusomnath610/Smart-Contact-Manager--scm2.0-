@@ -73,11 +73,11 @@ public class OAuthAuthenicationSuccessHandler implements AuthenticationSuccessHa
             user1.setRoleList(List.of(AppConstants.ROLE_USER));
             user1.setAbout("This is creating by Google");
 
-            User user2 = userrepo.findByEmail(email).orElse(null);
+            User user2 = userrepo.findByEmail(email).orElse(null); // Create the user in database for user2...
 
             if(user2 == null) {
                 userrepo.save(user1);
-                logger.info("User Saved:" + email);
+                logger.info("User Saved:" + email);// print the saved user along with the email id..
             }
 
 
