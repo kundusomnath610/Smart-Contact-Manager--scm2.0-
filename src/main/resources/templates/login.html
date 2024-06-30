@@ -19,15 +19,23 @@
                     <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Login Here </h5>
                     <p class="font-normal text-gray-700 dark:text-gray-400">Login on Cloud....</p>
 
-                    <!-- This is My Form Start -->
-                    <form 
-                    method="post"
-                    data-th-action="@{'/authenticate'}"
-                    class="mt-5" 
-                    
-                    
-                    >
+                    <div class="text-red-600 text-center my-3" th:if="${param.error}">
+                        Invalid username and password.
+                    </div>
 
+                    <div
+                        class="text-green-600 text-center my-3"
+                        th:if="${param.logout}"
+                    >
+                        You have been logged out.
+                      </div>
+
+                    <!-- This is My Form Start -->
+                    <form
+                    method="post"
+                    data-th-action="@{'/authenticate'}" 
+                    class="mt-5" 
+                    >
 
                         <!-- User name -->
                         <div class="mb-3">
@@ -45,16 +53,13 @@
                             </label>
                             <input type="password" name="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Type your password" required />
                         </div>
+
                         <!-- <p 
                         data-th-if="${#fields.hasErrors('password')}"
                         data-th-errors="*{password}"
                         class="text-red-500 py-2"> 
                         Password is requried** 
                         </p> -->
-
-
-
-
 
                         <!-- Buttons -->
                         <div class="mb-3 flex justify-center space-x-5">
@@ -67,6 +72,16 @@
                             </button>
                         </div>
                     </form>
+                    <div
+                        class="social-buttons-container flex justify-center items-center flex-col space-y-4 mt-10"
+                        >
+                          <a
+                            class="px-3 py-2 w-1/2 font-semibold rounded-lg login-with-google-btn text-center"
+                            data-th-href="@{'/oauth2/authorization/google'}"
+                          >
+                            Sign in with Google</a
+                          >
+                    </div>
                 </div>
             </div>
         </div>

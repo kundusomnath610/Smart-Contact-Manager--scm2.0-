@@ -10,6 +10,7 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -49,6 +50,9 @@ public class SecurityConfig {
     @Autowired
     private SecurityCustomDetailsServices userDetailsServices;
 
+    @Autowired
+    private OAuthAuthenicationSuccessHandler handler;
+
     @Bean
     public DaoAuthenticationProvider authenticationProvider () {
 
@@ -76,7 +80,7 @@ public class SecurityConfig {
             formLogin.loginPage("/login");
             formLogin.loginProcessingUrl("/authenticate");
             formLogin.successForwardUrl("/user/dashboard");
-            formLogin.failureForwardUrl("/login?error=true");
+            //formLogin.failureForwardUrl("/login?error=true");
             formLogin.usernameParameter("email");
             formLogin.passwordParameter("password");
             // formLogin.failureHandler(new AuthenticationFailureHandler() {
@@ -103,9 +107,17 @@ public class SecurityConfig {
 
         });
 
+        httpSecurity.csrf(AbstractHttpConfigurer::disable);
         httpSecurity.logout(logoutForm -> {
+            logoutForm.logoutUrl("/do-logout");
+            logoutForm.logoutSuccessUrl("/login?logout=true");
+        });
 
-            logoutForm.logoutUrl("/logout");
+        // OAuth Configaration...
+
+        httpSecurity.oauth2Login(oauth -> {
+            oauth.loginPage("/login");
+            oauth.successHandler(handler);
         });
 
         return httpSecurity.build();
