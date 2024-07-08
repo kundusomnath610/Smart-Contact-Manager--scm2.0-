@@ -101,6 +101,14 @@ public class UserServicesImpl implements UserServices {
     public List<User> getAllUser() {
         return userrepo.findAll();
     }
+
+    @Override
+    public User getUserByEmail(String email) {
+
+        return userrepo.findByEmail(email).orElseThrow(() -> 
+        new ResourceNotFoundException("User Not Found"));
+
+    }
     
 
 

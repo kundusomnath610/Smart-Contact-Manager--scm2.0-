@@ -10,6 +10,8 @@ import com.scm.entities.User;
 public interface Userrepo extends JpaRepository<User, String> {
 
     // extra DB related method.. Here..
+    // Custom Query Method......
+    // Custom finder method...     
 
     Optional <User> findByEmail(String email);
 
