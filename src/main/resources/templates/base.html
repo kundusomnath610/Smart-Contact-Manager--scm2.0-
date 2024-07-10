@@ -29,7 +29,24 @@
   </head>
   <body class="dark:bg-gray-900 bg-gray-100 dark:text-white">
     <!-- common header -->
-    <div data-th-replace="navbar :: navbar"></div>
+
+    <!-- If User logIn then : navbar-->
+    <div th:if="${loggedInUser}">
+        <div data-th-replace="~{user/user_navbar::user-navbar}"></div>
+    </div>
+
+    <!-- User login Side Bar -->
+<!-- 
+    <div th:if="${loggedInUser}">
+        <div data-th-replace="~{user/sidebar :: sidebar}">
+
+        </div>
+    </div> -->
+
+    <!-- if User Not Login -->
+    <div th:unless="${loggedInUser}">
+      <div data-th-replace="~{navbar :: navbar}"></div>
+    </div> 
 
     <!-- main content -->
     <div class="p-4">
