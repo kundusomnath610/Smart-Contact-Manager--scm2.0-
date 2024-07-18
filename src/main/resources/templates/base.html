@@ -2,19 +2,19 @@
 <html
   class="light"
   lang="en"
-  th:fragment="parent(content,title,script)"
+  th:fragment="parent(content, title, script)"
   xmlns:th="http://www.thymeleaf.org"
 >
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title data-th-replace="${title}">SCM</title>
+    <title th:text="${title}">SCM</title>
     
-    <link rel="stylesheet" data-th-href="@{'/css/output.css'}" />
-    <link rel="stylesheet" data-th-href="@{'/css/style.css'}" />
+    <link rel="stylesheet" th:href="@{/css/output.css}" />
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
 
-     <!-- font awesome -->
-     <link
+    <!-- font awesome -->
+    <link
       href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"
       rel="stylesheet"
     />
@@ -32,33 +32,31 @@
 
     <!-- If User logIn then : navbar-->
     <div th:if="${loggedInUser}">
-        <div data-th-replace="~{user/user_navbar::user-navbar}"></div>
+      <div th:replace="user/user_navbar :: user-navbar"></div>
     </div>
 
     <!-- User login Side Bar -->
-<!-- 
-    <div th:if="${loggedInUser}">
-        <div data-th-replace="~{user/sidebar :: sidebar}">
-
-        </div>
+    <!-- <div th:if="${loggedInUser}">
+      <div th:replace="user/sidebar :: sidebar"></div>
     </div> -->
 
     <!-- if User Not Login -->
     <div th:unless="${loggedInUser}">
-      <div data-th-replace="~{navbar :: navbar}"></div>
+      <div th:replace="navbar :: navbar"></div>
     </div> 
 
     <!-- main content -->
     <div class="p-4">
-      <section data-th-replace="${content}"></section>
+      <section th:replace="${content}"></section>
     </div>
+
     <!-- flow bite content -->
 
     <!-- common footer -->
     <!-- <footer class="p-4">Footer: Learn Code With Durgesh</footer> -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
-    <script data-th-src="@{'/js/script.js'}"></script>
-    <th:block data-th-replace="${script}"></th:block>
+    <script th:src="@{/js/script.js}"></script>
+    <th:block th:replace="${script}"></th:block>
   </body>
 </html>
