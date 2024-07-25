@@ -1,5 +1,7 @@
 package com.scm.controllers;
 
+import java.util.UUID;
+
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -79,7 +81,9 @@ public class contactController {
         //logger.info("file information : {}", contactForm.getContactImage().getOriginalFilename());
 
         //Image File upload..
-       String fileUrl = imageServices.uploadimage(contactForm.getContactImage()); 
+        String filename = UUID.randomUUID().toString();
+
+       String fileUrl = imageServices.uploadimage(contactForm.getContactImage(), filename); 
 
         Contacts contact = new Contacts();
 
@@ -93,7 +97,8 @@ public class contactController {
         contact.setWebsiteLink(contactForm.getWebsiteLink());
         contact.setUser(user);
         contact.setPicture(fileUrl);
-        //contactServices.save(contact);
+       contact.setCloudinaryImagePublicId(fileUrl);
+        contactServices.save(contact);
 
         // Passing the Add Contact Data
         System.out.println(contactForm);
