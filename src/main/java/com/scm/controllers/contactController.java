@@ -98,7 +98,7 @@ public class contactController {
         contact.setWebsiteLink(contactForm.getWebsiteLink());
         contact.setUser(user);
         contact.setPicture(fileUrl);
-       contact.setCloudinaryImagePublicId(fileUrl);
+        contact.setCloudinaryImagePublicId(fileUrl);
         contactServices.save(contact);
 
         // Passing the Add Contact Data

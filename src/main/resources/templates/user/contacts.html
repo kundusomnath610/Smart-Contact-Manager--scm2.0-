@@ -18,10 +18,10 @@
         <div data-th-replace="~{user/sidebar :: sidebar}"></div>
       </div>
 
-      <div class="sm:pl-64 pt-20" style="height: 1000px">
-        <div class="flex justify-center flex-col items-center">
-          <h1 class="text-5xl">Welcome to Contact page</h1>
-          <p> List of all Contacts.. </p>
+      <div class="sm:pl-64 pt-20">
+        <div class="">
+          <h1 class="text-5xl text-center">Welcome to Contact page</h1>
+          <p class="text-center"> List of all Contacts.. </p>
 
             <div class="contacts_container p-5">
 
@@ -35,6 +35,7 @@
                                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
                                     </svg>
                             </button>
+
                             <!-- Dropdown menu -->
                             <div id="dropdownAction" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
                                     <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownActionButton">
@@ -52,7 +53,9 @@
                                         <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete User</a>
                                     </div>
                             </div>
+
                         </div>
+
                         <label for="table-search" class="sr-only">Search</label>
                         <div class="relative">
                             <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -66,20 +69,14 @@
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
-                                <th scope="col" class="p-4">
-                                    <div class="flex items-center">
-                                        <input id="checkbox-all-search" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                        <label for="checkbox-all-search" class="sr-only">checkbox</label>
-                                    </div>
-                                </th>
                                 <th scope="col" class="px-6 py-3">
                                     Name
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    Position
+                                    Phone
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    Status
+                                    Link
                                 </th>
                                 <th scope="col" class="px-6 py-3">
                                     Action
@@ -87,136 +84,38 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                <td class="w-4 p-4">
-                                    <div class="flex items-center">
-                                        <input id="checkbox-table-search-1" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                        <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
-                                    </div>
-                                </td>
-                                <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
-                                    <img class="w-10 h-10 rounded-full" src="/docs/images/people/profile-picture-1.jpg" alt="Jese image">
-                                    <div class="ps-3">
-                                        <div class="text-base font-semibold">Neil Sims</div>
-                                        <div class="font-normal text-gray-500">neil.sims@flowbite.com</div>
-                                    </div>  
-                                </th>
-                                <td class="px-6 py-4">
-                                    React Developer
-                                </td>
-                                <td class="px-6 py-4">
-                                    <div class="flex items-center">
-                                        <div class="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div> Online
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4">
-                                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit user</a>
-                                </td>
+                            <tr
+                                data-th-object="${c}"
+                                data-th-each="c : ${contacts}" 
+                                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+
+                                    <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
+                                        <img onerror="this.src='https://media.istockphoto.com/id/610003972/vector/vector-businessman-black-silhouette-isolated.jpg?s=612x612&w=0&k=20&c=Iu6j0zFZBkswfq8VLVW8XmTLLxTLM63bfvI6uXdkacM='"
+                                        class="w-10 h-10 rounded-full" data-th-src="@{*{picture}}" src="/docs/images/people/profile-picture-1.jpg" alt="Jese image">
+                                        <div class="ps-3">
+                                            <div class="text-base font-semibold" data-th-text="*{name}"></div>
+                                            <div class="font-normal text-gray-500" data-th-text="*{email}"></div>
+                                        </div>  
+                                    </th>
+                                    <td class="px-6 py-4">
+                                        <i class="fa-solid fa-phone w-4 h-4"></i>
+                                        <span data-th-text="*{phone_Number}"></span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center">
+                                            <div class="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div>
+
+                                            <!-- For website-->
+                                            <a data-th-href="@{*{websiteLink}}" target="_blank"> <i class="fa-solid fa-link w-5 h-5"></i></a>
+                                            <!-- For LinkedIn Link -->
+                                            <a data-th-href="@{*{linkedinLink}}" target="_blank"> <i class="fa-brands w-6 h-6 fa-linkedin"></i> </a>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit user</a>
+                                    </td>
                             </tr>
-                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                <td class="w-4 p-4">
-                                    <div class="flex items-center">
-                                        <input id="checkbox-table-search-2" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                        <label for="checkbox-table-search-2" class="sr-only">checkbox</label>
-                                    </div>
-                                </td>
-                                <th scope="row" class="flex items-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    <img class="w-10 h-10 rounded-full" src="/docs/images/people/profile-picture-3.jpg" alt="Jese image">
-                                    <div class="ps-3">
-                                        <div class="text-base font-semibold">Bonnie Green</div>
-                                        <div class="font-normal text-gray-500">bonnie@flowbite.com</div>
-                                    </div>
-                                </th>
-                                <td class="px-6 py-4">
-                                    Designer
-                                </td>
-                                <td class="px-6 py-4">
-                                    <div class="flex items-center">
-                                        <div class="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div> Online
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4">
-                                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit user</a>
-                                </td>
-                            </tr>
-                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                <td class="w-4 p-4">
-                                    <div class="flex items-center">
-                                        <input id="checkbox-table-search-2" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                        <label for="checkbox-table-search-2" class="sr-only">checkbox</label>
-                                    </div>
-                                </td>
-                                <th scope="row" class="flex items-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    <img class="w-10 h-10 rounded-full" src="/docs/images/people/profile-picture-2.jpg" alt="Jese image">
-                                    <div class="ps-3">
-                                        <div class="text-base font-semibold">Jese Leos</div>
-                                        <div class="font-normal text-gray-500">jese@flowbite.com</div>
-                                    </div>
-                                </th>
-                                <td class="px-6 py-4">
-                                    Vue JS Developer
-                                </td>
-                                <td class="px-6 py-4">
-                                    <div class="flex items-center">
-                                        <div class="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div> Online
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4">
-                                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit user</a>
-                                </td>
-                            </tr>
-                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                <td class="w-4 p-4">
-                                    <div class="flex items-center">
-                                        <input id="checkbox-table-search-2" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                        <label for="checkbox-table-search-2" class="sr-only">checkbox</label>
-                                    </div>
-                                </td>
-                                <th scope="row" class="flex items-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    <img class="w-10 h-10 rounded-full" src="/docs/images/people/profile-picture-5.jpg" alt="Jese image">
-                                    <div class="ps-3">
-                                        <div class="text-base font-semibold">Thomas Lean</div>
-                                        <div class="font-normal text-gray-500">thomes@flowbite.com</div>
-                                    </div>
-                                </th>
-                                <td class="px-6 py-4">
-                                    UI/UX Engineer
-                                </td>
-                                <td class="px-6 py-4">
-                                    <div class="flex items-center">
-                                        <div class="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div> Online
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4">
-                                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit user</a>
-                                </td>
-                            </tr>
-                            <tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                <td class="w-4 p-4">
-                                    <div class="flex items-center">
-                                        <input id="checkbox-table-search-3" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                        <label for="checkbox-table-search-3" class="sr-only">checkbox</label>
-                                    </div>
-                                </td>
-                                <th scope="row" class="flex items-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    <img class="w-10 h-10 rounded-full" src="/docs/images/people/profile-picture-4.jpg" alt="Jese image">
-                                    <div class="ps-3">
-                                        <div class="text-base font-semibold">Leslie Livingston</div>
-                                        <div class="font-normal text-gray-500">leslie@flowbite.com</div>
-                                    </div>
-                                </th>
-                                <td class="px-6 py-4">
-                                    SEO Specialist
-                                </td>
-                                <td class="px-6 py-4">
-                                    <div class="flex items-center">
-                                        <div class="h-2.5 w-2.5 rounded-full bg-red-500 me-2"></div> Offline
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4">
-                                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit user</a>
-                                </td>
-                            </tr>
+
                         </tbody>
                     </table>
                 </div>
