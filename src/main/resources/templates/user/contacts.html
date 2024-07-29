@@ -103,24 +103,38 @@
                                     </td>
                                     <td class="px-6 py-4">
                                         <div class="flex items-center">
-                                            <div class="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div>
+                                            <div 
+                                                data-th-if="@{*{favorite}}" 
+                                                <i class="fa-regular fa-heart h-4 w-4"></i>
+                                                <!-- class="h-2.5 w-2.5 rounded-full bg-green-500 me-2"> -->
+                                            </div>
 
                                             <!-- For website-->
-                                            <a data-th-href="@{*{websiteLink}}" target="_blank"> <i class="fa-solid fa-link w-5 h-5"></i></a>
+                                            <a data-th-href="*{websiteLink}" target="_blank"> <i class="fa-solid fa-link w-5 h-5"></i></a>
+                                            
                                             <!-- For LinkedIn Link -->
                                             <a data-th-href="@{*{linkedinLink}}" target="_blank"> <i class="fa-brands w-6 h-6 fa-linkedin"></i> </a>
                                         </div>
                                     </td>
-                                    <td class="px-6 py-4">
-                                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit user</a>
+                                    <td>
+                                        <a href="">
+                                            <i class="fa-solid fa-pen-nib h-6 w-6" style="color: #b6fb98;"></i>   
+                                        </a>
+
+                                        <a href="">
+                                            <i class="fa-solid fa-trash h-6 w-6" style="color: #b6fb98;"></i>
+                                        </a>
+
+                                        <a href="">
+                                            <i class="fa-solid fa-eye h-6 w-6" style="color: #b6fb98;"></i>
+                                        </a>
+                                        
                                     </td>
                             </tr>
 
                         </tbody>
                     </table>
                 </div>
-
-
             </div>
         </div>
       </div>
