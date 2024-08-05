@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
@@ -15,7 +17,7 @@ public interface ContactRepo extends JpaRepository<Contacts,String> {
     // Find By Contact User
 
     // Custom finder Method...
-    List<Contacts> findByUser(User user);
+    Page <Contacts> findByUser(User user, Pageable pageable);
 
     // Custom Query Method...
     @Query("SELECT c FROM Contacts c WHERE c.user.id = :userId")
