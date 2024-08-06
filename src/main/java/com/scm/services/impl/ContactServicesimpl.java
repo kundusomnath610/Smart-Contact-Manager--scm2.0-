@@ -72,7 +72,7 @@ public class ContactServicesimpl implements ContactServices {
         Sort sort = direction.equals("desc")? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
         var pageaable = PageRequest.of(page, size , sort);
 
-        return contactRepo.findByUser(user, null);
+        return contactRepo.findByUser(user, pageaable);
     }
 
 }
