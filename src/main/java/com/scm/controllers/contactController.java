@@ -139,4 +139,17 @@ public class contactController {
         return "user/contacts";
     }
 
+    // For search option
+    @RequestMapping("/search")
+    public String searchHandler(
+
+        @RequestParam("field") String field,
+        @RequestParam("keyword") String value
+    ){
+        logger.info("field{}, keyword{}", field, value);
+        //ContactServices.search()
+
+        return "user/search";
+    } 
+
 }

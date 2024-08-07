@@ -54,11 +54,6 @@ public class ContactServicesimpl implements ContactServices {
         return contactRepo.save(contacts);
     }
 
-    @Override
-    public List<Contacts> search(String name, String email, String phone_Number) {
-        // TODO Auto-generated method stub
-        return null;
-    }
 
     @Override
     public Contacts update(Contacts contacts) {
@@ -70,9 +65,34 @@ public class ContactServicesimpl implements ContactServices {
     public Page <Contacts> getByUser(User user , int page , int size , String sortBy, String direction) {
 
         Sort sort = direction.equals("desc")? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
-        var pageaable = PageRequest.of(page, size , sort);
+        var pageable = PageRequest.of(page, size , sort);
 
-        return contactRepo.findByUser(user, pageaable);
+        return contactRepo.findByUser(user, pageable);
     }
+
+    /*
+     * Search Contact Implemented Here 
+     * From ContactServices Interface search Method...
+     */
+    
+    @Override
+    public Page<Contacts> searchByName(String nameKeyword, int size, int page, String sortBy, String order) {
+        var pageable = PageRequest.of(page, size, Sort.by(sortBy));
+        return contactRepo.findByNameContaining(nameKeyword, pageable); 
+    }
+
+    @Override
+    public Page<Contacts> searchByEmail(String emailKeyword, int size, int page, String sortBy, String order) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'searchByEmail'");
+    }
+
+    @Override
+    public Page<Contacts> searchByphone_Number(String phone_NumberKeyword, int size, int page, String sortBy,
+            String order) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'searchByphone_Number'");
+    }
+    
 
 }
