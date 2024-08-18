@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -23,10 +24,10 @@ public interface ContactRepo extends JpaRepository<Contacts,String> {
     @Query("SELECT c FROM Contacts c WHERE c.user.id = :userId")
     List<Contacts> findByUserId(@Param("userId")String userId);
 
-    Page<Contacts> findByNameContaining(String nameKeyword, Pageable pageable);
-    Page<Contacts> findByEmailContaining(String emailKeyword, Pageable pageable);
-    Page<Contacts> findByphone_NumberContaining(String phone_NumberKeyword, Pageable pageable);
+    // Contacts Repo
+    Page<Contacts> findByNameContaining(String namekeyword, Pageable pageable);
+    Page<Contacts> findByEmailContaining(String emailkeyword, Pageable pageable);
+    Page<Contacts> findByPhoneNumberContaining(String phonekeyword, Pageable pageable); 
 
-    
 
 }

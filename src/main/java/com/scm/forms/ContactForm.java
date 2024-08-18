@@ -29,7 +29,7 @@ public class ContactForm {
 
     @NotBlank(message = "Phone Number Requried")
     @Pattern(regexp = "^[0-9]{10}$",message = "Invalid Phone Number")
-    private String phone_Number;
+    private String phoneNumber;
 
     @NotBlank(message = "Address Requried")
     private String address;

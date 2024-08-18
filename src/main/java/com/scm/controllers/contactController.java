@@ -10,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -47,6 +48,8 @@ public class contactController {
     private User userByEmail;
 
     private User user;
+
+    private Page<Contacts> searchByName;
 
     @RequestMapping("/add")
     public String addContactView(Model model) {
@@ -93,7 +96,7 @@ public class contactController {
 
         contact.setName(contactForm.getName());
         contact.setEmail(contactForm.getEmail());
-        contact.setPhone_Number(contactForm.getPhone_Number());
+        contact.setPhoneNumber(contactForm.getPhoneNumber());
         contact.setFavorite(contactForm.isFavorite());
         contact.setAddress(contactForm.getAddress());
         contact.setDescription(contactForm.getDescription());
@@ -142,14 +145,49 @@ public class contactController {
     // For search option
     @RequestMapping("/search")
     public String searchHandler(
-
         @RequestParam("field") String field,
-        @RequestParam("keyword") String value
-    ){
-        logger.info("field{}, keyword{}", field, value);
-        //ContactServices.search()
+        @RequestParam("keyword") String value,
+        @RequestParam(value = "size", defaultValue = AppConstants.PAGE_SIZE + "") int size,
+        @RequestParam(value = "page", defaultValue = "0") int page,
+        @RequestParam(value = "sortBy", defaultValue = "name") String sortBy,
+        @RequestParam(value = "direction", defaultValue = "asc") String direction,
+        Model model
+) {
+    logger.info("Searching by field: {} with keyword: {}", field, value);
 
-        return "user/search";
-    } 
+    Page<Contacts> pageContacts = null;
+
+    switch (field.toLowerCase()) {
+        case "name":
+            pageContacts = contactServices.searchByName(value, size, page, sortBy, direction);
+            break;
+        case "email":
+            pageContacts = contactServices.searchByEmail(value, size, page, sortBy, direction);
+            break;
+        case "phone":
+            pageContacts = contactServices.searchByPhoneNumber(value, size, page, sortBy, direction);
+            break;
+        default:
+            // Handle invalid search field case
+            // model.addAttribute("message", Message.builder()
+            //         .content("Invalid search field")
+            //         .type(MessageType.red)
+            //         .build());
+            return "user/search";
+    }
+
+    if (pageContacts == null || pageContacts.isEmpty()) {
+        model.addAttribute("message", Message.builder()
+                .content("No contacts found for the given search criteria")
+                .type(MessageType.yellow)
+                .build());
+    } else {
+        model.addAttribute("pageContacts", pageContacts);
+    }
+
+    return "user/search";
+}
+
+
 
 }

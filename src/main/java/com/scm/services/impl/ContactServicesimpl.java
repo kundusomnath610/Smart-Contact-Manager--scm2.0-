@@ -61,38 +61,100 @@ public class ContactServicesimpl implements ContactServices {
         return null;
     }
 
+     /*
+     * Search Contact Implemented Here 
+     * From ContactServices Interface search Method...
+     */
+
     @Override
     public Page <Contacts> getByUser(User user , int page , int size , String sortBy, String direction) {
 
         Sort sort = direction.equals("desc")? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
         var pageable = PageRequest.of(page, size , sort);
-
         return contactRepo.findByUser(user, pageable);
     }
 
-    /*
-     * Search Contact Implemented Here 
-     * From ContactServices Interface search Method...
-     */
-    
     @Override
     public Page<Contacts> searchByName(String nameKeyword, int size, int page, String sortBy, String order) {
+        Sort sort = order.equals("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
         var pageable = PageRequest.of(page, size, Sort.by(sortBy));
-        return contactRepo.findByNameContaining(nameKeyword, pageable); 
+        return contactRepo.findByNameContaining(nameKeyword, pageable);
     }
 
     @Override
     public Page<Contacts> searchByEmail(String emailKeyword, int size, int page, String sortBy, String order) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'searchByEmail'");
+        Sort sort = order.equals("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
+        var pageable = PageRequest.of(page, size, Sort.by(sortBy));
+        return contactRepo.findByEmailContaining(emailKeyword, pageable);
     }
 
     @Override
-    public Page<Contacts> searchByphone_Number(String phone_NumberKeyword, int size, int page, String sortBy,
-            String order) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'searchByphone_Number'");
+    public Page<Contacts> searchByPhoneNumber(String phoneNumberKeyword, int size, int page, String sortBy, String order) {
+        Sort sort = order.equals("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
+        var pageable = PageRequest.of(page, size, Sort.by(sortBy));
+        return contactRepo.findByPhoneNumberContaining(phoneNumberKeyword, pageable);
     }
-    
+
+
+
+
+
+
+
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//   @Override
+//     public Page<Contacts> searchByname(String nameKeyword, int size, int page, String sortBy, String order) {
+//         Sort sort = order.equals("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
+//         var pageable = PageRequest.of(page, size, sort);
+//         return contactRepo.findBynameContaining(nameKeyword, pageable); 
+//     }
+
+//     @Override
+//     public Page<Contacts> searchByemail(String emailKeyword, int size, int page, String sortBy, String order) {
+//         Sort sort = order.equals("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
+//         var pageable = PageRequest.of(page, size, sort);
+//         return contactRepo.findByemailContaining(emailKeyword, pageable); 
+//     }
+
+//     @Override
+//     public Page<Contacts> searchByphone_Number(String phone_NumberKeyword, int size, int page, String sortBy, String order) {
+//         Sort sort = order.equals("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
+//         var pageable = PageRequest.of(page, size, sort);
+//         return contactRepo.findByphone_NumberContaining(phone_NumberKeyword, pageable); 
+//     }
+// }

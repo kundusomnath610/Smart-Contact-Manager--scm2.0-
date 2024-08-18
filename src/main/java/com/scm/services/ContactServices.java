@@ -30,12 +30,13 @@ public interface ContactServices {
     // Search Contact
     Page<Contacts> searchByName(String nameKeyword, int size, int page, String sortBy, String order);
     Page<Contacts> searchByEmail(String emailKeyword, int size, int page, String sortBy, String order);
-    Page<Contacts> searchByphone_Number(String phone_NumberKeyword, int size, int page, String sortBy, String order);
+    Page<Contacts> searchByPhoneNumber(String phoneNumberKeyword, int size, int page, String sortBy, String order);
 
     // get contact byUserId
     List<Contacts> getByUserId(String userId);
 
     //Contacts Services getByUser
     Page <Contacts> getByUser(User user, int page , int size, String sortField, String sortDirection);
+
     
 }
