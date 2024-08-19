@@ -176,14 +176,15 @@ public class contactController {
             return "user/search";
     }
 
-    if (pageContacts == null || pageContacts.isEmpty()) {
-        model.addAttribute("message", Message.builder()
-                .content("No contacts found for the given search criteria")
-                .type(MessageType.yellow)
-                .build());
-    } else {
-        model.addAttribute("pageContacts", pageContacts);
-    }
+    // if (pageContacts == null || pageContacts.isEmpty()) {
+    //     model.addAttribute("message", Message.builder()
+    //             .content("No contacts found for the given search criteria")
+    //             .type(MessageType.yellow)
+    //             .build());
+    // } else {
+        
+    // }
+    model.addAttribute("pageContacts", pageContacts);
 
     return "user/search";
 }
