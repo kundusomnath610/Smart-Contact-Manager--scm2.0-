@@ -187,8 +187,6 @@ public class contactController {
     model.addAttribute("pageContacts", pageContacts);
 
     return "user/search";
-}
-
-
+    }
 
 }
