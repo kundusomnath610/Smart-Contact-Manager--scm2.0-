@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.scm.entities.Contacts;
 import com.scm.entities.User;
 import com.scm.forms.ContactForm;
+import com.scm.forms.ContactsSearchForm;
 import com.scm.helpers.AppConstants;
 import com.scm.helpers.Helper;
 import com.scm.helpers.Message;
@@ -138,6 +139,7 @@ public class contactController {
         Page <Contacts> pageContacts = contactServices.getByUser(user,page,size,sortBy,direction);
         model.addAttribute("pageContacts", pageContacts);
         model.addAttribute("pageSize", AppConstants.PAGE_SIZE);
+        model.addAttribute("contactsSearchForm", new ContactsSearchForm());
 
         return "user/contacts";
     }
@@ -145,27 +147,29 @@ public class contactController {
     // For search option
     @RequestMapping("/search")
     public String searchHandler(
-        @RequestParam("field") String field,
-        @RequestParam("keyword") String value,
+        @ModelAttribute ContactsSearchForm contactsSearchForm,
         @RequestParam(value = "size", defaultValue = AppConstants.PAGE_SIZE + "") int size,
         @RequestParam(value = "page", defaultValue = "0") int page,
         @RequestParam(value = "sortBy", defaultValue = "name") String sortBy,
         @RequestParam(value = "direction", defaultValue = "asc") String direction,
-        Model model
+        Model model,
+        Authentication authentication
 ) {
-    logger.info("Searching by field: {} with keyword: {}", field, value);
+    logger.info("Searching by field: {} with keyword: {}", contactsSearchForm.getField(), contactsSearchForm.getValue());
+
+    var user = userServices.getUserByEmail(Helper.getEmailOfLoggedInUser(authentication));
 
     Page<Contacts> pageContacts = null;
 
-    switch (field.toLowerCase()) {
+    switch (contactsSearchForm.getField().toLowerCase()) {
         case "name":
-            pageContacts = contactServices.searchByName(value, size, page, sortBy, direction);
+            pageContacts = contactServices.searchByName(contactsSearchForm.getValue(), size, page, sortBy, direction, user);
             break;
         case "email":
-            pageContacts = contactServices.searchByEmail(value, size, page, sortBy, direction);
+            pageContacts = contactServices.searchByEmail(contactsSearchForm.getValue(), size, page, sortBy, direction, user);
             break;
         case "phone":
-            pageContacts = contactServices.searchByPhoneNumber(value, size, page, sortBy, direction);
+            pageContacts = contactServices.searchByPhoneNumber(contactsSearchForm.getValue(), size, page, sortBy, direction, user);
             break;
         default:
             // Handle invalid search field case
@@ -185,6 +189,9 @@ public class contactController {
         
     // }
     model.addAttribute("pageContacts", pageContacts);
+    model.addAttribute("contactsSearchForm", contactsSearchForm);
+    model.addAttribute("pageSize", AppConstants.PAGE_SIZE);
+
 
     return "user/search";
     }

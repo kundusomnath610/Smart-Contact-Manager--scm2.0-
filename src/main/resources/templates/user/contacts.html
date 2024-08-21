@@ -13,19 +13,20 @@
       <div class="sm:pl-64 pt-20">
         <div>
           <h1 class="text-5xl text-center">Welcome to the Contact Page</h1>
-          <p class="text-center">List of all Contacts</p>
+          <!-- Finding the total contacts -->
+          <p  class="text-green-500 text-center text-2xl py-3" data-th-text="'Total ' + ${pageContacts.totalElements} + ' Result Found' "> </p>
 
           <div class="contacts_container p-5">
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-5">
               
               <!-- Search Form -->
-              <form action="" data-th-action="@{'/user/contacts/search'}">
+              <form data-th-object="${contactsSearchForm}" data-th-action="@{'/user/contacts/search'}">
                 <div class="flex space-x-4 items-center justify-start flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-4 bg-white dark:bg-gray-900">
 
                   <!-- Select Box -->
                   <div>
-                    <select name="field" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                      <option selected>Select Field</option>
+                    <select data-th-field="*{field}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                      <option selected value="">Select Field</option>
                       <option value="name">Name</option>
                       <option value="email">Email</option>
                       <option value="phone">Phone</option>
@@ -40,7 +41,7 @@
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                       </svg>
                     </div>
-                    <input name="keyword" type="text" id="table-search-users" class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for users">
+                    <input data-th-field="*{value}" type="text" id="table-search-users" class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for users">
                   </div>
 
                   <!-- Search Button -->
@@ -94,7 +95,7 @@
               </table>
 
               <!-- Pagination -->
-              <div class="pagination_container mt-4 text-center">
+              <div  data-th-unless="${pageContacts.empty}" class="pagination_container mt-4 text-center">
                 <nav aria-label="Page navigation example">
                   <ul class="inline-flex -space-x-px text-base h-10">
                     <!-- Previous Pagination -->
@@ -114,6 +115,14 @@
                   </ul>
                 </nav>
               </div>
+                <!-- For No result found -->
+                <h1 
+                    class="text-4xl text-red-700 text-center py-4" 
+                    data-th-if="${pageContacts.empty}" 
+                >
+                    No Result Found
+                </h1>
+
             </div>
           </div>
 

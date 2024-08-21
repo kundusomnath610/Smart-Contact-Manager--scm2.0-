@@ -75,24 +75,24 @@ public class ContactServicesimpl implements ContactServices {
     }
 
     @Override
-    public Page<Contacts> searchByName(String nameKeyword, int size, int page, String sortBy, String order) {
+    public Page<Contacts> searchByName(String nameKeyword, int size, int page, String sortBy, String order, User user) {
         Sort sort = order.equals("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
         var pageable = PageRequest.of(page, size, Sort.by(sortBy));
-        return contactRepo.findByNameContaining(nameKeyword, pageable);
+        return contactRepo.findByUserAndNameContaining(user, nameKeyword, pageable);
     }
 
     @Override
-    public Page<Contacts> searchByEmail(String emailKeyword, int size, int page, String sortBy, String order) {
+    public Page<Contacts> searchByEmail(String emailKeyword, int size, int page, String sortBy, String order, User user) {
         Sort sort = order.equals("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
         var pageable = PageRequest.of(page, size, Sort.by(sortBy));
-        return contactRepo.findByEmailContaining(emailKeyword, pageable);
+        return contactRepo.findByUserAndEmailContaining(user,emailKeyword, pageable);
     }
 
     @Override
-    public Page<Contacts> searchByPhoneNumber(String phoneNumberKeyword, int size, int page, String sortBy, String order) {
+    public Page<Contacts> searchByPhoneNumber(String phoneNumberKeyword, int size, int page, String sortBy, String order, User user) {
         Sort sort = order.equals("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
         var pageable = PageRequest.of(page, size, Sort.by(sortBy));
-        return contactRepo.findByPhoneNumberContaining(phoneNumberKeyword, pageable);
+        return contactRepo.findByUserAndPhoneNumberContaining(user, phoneNumberKeyword, pageable);
     }
 
 
