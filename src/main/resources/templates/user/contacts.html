@@ -88,7 +88,7 @@
                     <td>
                       <a href="#"><i class="fa-solid fa-pen-nib h-6 w-6" style="color: #b6fb98;"></i></a>
                       <a href="#"><i class="fa-solid fa-trash h-6 w-6" style="color: #b6fb98;"></i></a>
-                      <a href="#"><i class="fa-solid fa-eye h-6 w-6" style="color: #b6fb98;"></i></a>
+                      <button onclick="openContactModal()"><i class="fa-solid fa-eye h-6 w-6" style="color: #b6fb98;"></i></a>
                     </td>
                   </tr>
                 </tbody>
@@ -125,10 +125,12 @@
 
             </div>
           </div>
-
         </div>
+        <div data-th-replace="~{user/contacts_modals :: contact}"></div>
       </div>
     </div>
+
+    <script data-th-src="@{'/js/contacts.js'}"></script>
 
     <script>
       console.log("This is the profile page");

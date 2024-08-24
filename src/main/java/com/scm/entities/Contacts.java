@@ -16,6 +16,8 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Getter
 @Setter
@@ -40,6 +42,7 @@ public class Contacts {
     //private List <String> socialLink = (List<String>) new ArrayList();
 
     @ManyToOne
+    @JsonIgnore
     private User user;
 
     @OneToMany(mappedBy = "contacts", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
