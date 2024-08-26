@@ -1,136 +1,139 @@
 <!DOCTYPE html>
 <html lang="en" th:replace="~{base :: parent(~{::#content},~{::title},~{::script})}">
   <head>
-    <title>Search Page</title>
+    <title>All Your Contacts</title>
   </head>
   <body>
     <div id="content">
-      <!-- Sidebar for logged in users -->
+      <!-- Sidebar: Displayed only if the user is logged in -->
       <div th:if="${loggedInUser}">
-        <div th:replace="~{user/sidebar :: sidebar}"></div>
+        <div data-th-replace="~{user/sidebar :: sidebar}"></div>
       </div>
 
-      <div class="sm:pl-64 pt-20" style="height: 1000px">
-        <div class="flex justify-center flex-col items-center">
-          <h1 class="text-5xl">Welcome to Search Page</h1>
+      <div class="sm:pl-64 pt-20">
+        <div>
+          <h1 class="text-5xl text-center">Welcome to the Search Page</h1>
+          <!-- Finding the total contacts -->
+          <p  class="text-green-500 text-center text-2xl py-3" data-th-text="'Total ' + ${pageContacts.totalElements} + ' Result Found' "> </p>
 
-          <!-- Seeing total contacts find from search -->
-          <p  class="text-green-500 text-2xl py-3" data-th-text="'Total ' + ${pageContacts.totalElements} + ' Result Found' "> </p>
-        </div>
+          <div class="contacts_container p-5">
+            <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-5">
+              
+              <!-- Search Form -->
+              <form data-th-object="${contactsSearchForm}" data-th-action="@{'/user/contacts/search'}">
+                <div class="flex space-x-4 items-center justify-start flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-4 bg-white dark:bg-gray-900">
 
-        <div class="contacts_container p-5">
-          <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-5">
-            
-            <!-- Search Form -->
-            <form data-th-object="${contactsSearchForm}" data-th-action="@{'/user/contacts/search'}">
-              <div class="flex space-x-4 items-center justify-start flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-4 bg-white dark:bg-gray-900">
-
-                <!-- Select Box -->
-                <div>
-                  <select data-th-field="*{field}" name="field" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option selected value="">Select Field</option>
-                    <option value="name">Name</option>
-                    <option value="email">Email</option> 
-                    <option value="phone">Phone</option>
-                  </select>
-                </div>
-
-                <!-- Search Input -->
-                <label for="table-search" class="sr-only">Search</label>
-                <div class="relative">
-                  <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
-                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                    </svg>
+                  <!-- Select Box -->
+                  <div>
+                    <select data-th-field="*{field}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                      <option selected value="">Select Field</option>
+                      <option value="name">Name</option>
+                      <option value="email">Email</option>
+                      <option value="phone">Phone</option>
+                    </select>
                   </div>
-                  <input data-th-field="*{value}" type="text" id="table-search-users" class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for users">
-                </div>
 
-                <!-- Search Button -->
-                <div>
-                  <button type="submit" class="px-3 py-2 bg-gray-800 text-white dark:bg-blue-600 rounded">Search</button>
-                </div>
-              </div>
-            </form>
-
-            <!-- Contacts Table -->
-            <table  data-th-unless="${pageContacts.empty}" class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-              <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                <tr>
-                  <th scope="col" class="px-6 py-3">Name</th>
-                  <th scope="col" class="px-6 py-3">Phone</th>
-                  <th scope="col" class="px-6 py-3">Link</th>
-                  <th scope="col" class="px-6 py-3">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr data-th-object="${c}" data-th-each="c : ${pageContacts.getContent()}" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                  <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
-                    <img onerror="this.src='https://media.istockphoto.com/id/610003972/vector/vector-businessman-black-silhouette-isolated.jpg?s=612x612&w=0&k=20&c=Iu6j0zFZBkswfq8VLVW8XmTLLxTLM63bfvI6uXdkacM='" class="w-10 h-10 rounded-full" data-th-src="@{*{picture}}" src="/docs/images/people/profile-picture-1.jpg" alt="Jese image">
-                    <div class="ps-3">
-                      <div class="text-base font-semibold" data-th-text="*{name}"></div>
-                      <div class="font-normal text-gray-500" data-th-text="*{email}"></div>
+                  <!-- Search Input -->
+                  <label for="table-search" class="sr-only">Search</label>
+                  <div class="relative">
+                    <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
+                      <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                      </svg>
                     </div>
-                  </th>
-                  <td class="px-6 py-4">
-                    <i class="fa-solid fa-phone w-4 h-4"></i>
-                    <span data-th-text="*{PhoneNumber}"></span>
-                  </td>
-                  <td class="px-6 py-4">
-                    <div class="flex items-center">
-                      <div data-th-if="@{*{favorite}}">
-                        <i class="fa-regular fa-heart h-4 w-4"></i>
+                    <input data-th-field="*{value}" type="text" id="table-search-users" class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for users">
+                  </div>
+
+                  <!-- Search Button -->
+                  <div>
+                    <button type="submit" class="px-3 py-2 bg-gray-800 text-white dark:bg-blue-600 rounded">Search</button>
+                  </div>
+                </div>
+              </form>
+
+              <!-- Contacts Table -->
+              <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                  <tr>
+                    <th scope="col" class="px-6 py-3">Name</th>
+                    <th scope="col" class="px-6 py-3">Phone</th>
+                    <th scope="col" class="px-6 py-3">Link</th>
+                    <th scope="col" class="px-6 py-3">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr data-th-object="${c}" data-th-each="c : ${pageContacts.getContent()}" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
+                      <img onerror="this.src='https://media.istockphoto.com/id/610003972/vector/vector-businessman-black-silhouette-isolated.jpg?s=612x612&w=0&k=20&c=Iu6j0zFZBkswfq8VLVW8XmTLLxTLM63bfvI6uXdkacM='" class="w-10 h-10 rounded-full" data-th-src="@{*{picture}}" src="/docs/images/people/profile-picture-1.jpg" alt="Jese image">
+                      <div class="ps-3">
+                        <div class="text-base font-semibold" data-th-text="*{name}"></div>
+                        <div class="font-normal text-gray-500" data-th-text="*{email}"></div>
                       </div>
-                      <!-- Website Link -->
-                      <a data-th-href="*{websiteLink}" target="_blank"><i class="fa-solid fa-link w-5 h-5"></i></a>
-                      <!-- LinkedIn Link -->
-                      <a data-th-href="@{*{linkedinLink}}" target="_blank"><i class="fa-brands w-6 h-6 fa-linkedin"></i></a>
-                    </div>
-                  </td>
-                  <td>
-                    <a href="#"><i class="fa-solid fa-pen-nib h-6 w-6" style="color: #b6fb98;"></i></a>
-                    <a href="#"><i class="fa-solid fa-trash h-6 w-6" style="color: #b6fb98;"></i></a>
-                    <a href="#"><i class="fa-solid fa-eye h-6 w-6" style="color: #b6fb98;"></i></a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+                    </th>
+                    <td class="px-6 py-4">
+                      <i class="fa-solid fa-phone w-4 h-4"></i>
+                      <span data-th-text="*{PhoneNumber}"></span>
+                    </td>
+                    <td class="px-6 py-4">
+                      <div class="flex items-center">
+                        <div data-th-if="@{*{favorite}}">
+                          <i class="fa-regular fa-heart h-4 w-4"></i>
+                        </div>
+                        <!-- Website Link -->
+                        <a data-th-href="*{websiteLink}" target="_blank"><i class="fa-solid fa-link w-5 h-5"></i></a>
+                        <!-- LinkedIn Link -->
+                        <a data-th-href="@{*{linkedinLink}}" target="_blank"><i class="fa-brands w-6 h-6 fa-linkedin"></i></a>
+                      </div>
+                    </td>
+                    <td>
+                      <a href="#"><i class="fa-solid fa-pen-nib h-6 w-6" style="color: #b6fb98;"></i></a>
+                      <a href="#"><i class="fa-solid fa-trash h-6 w-6" style="color: #b6fb98;"></i></a>
+                      <button th:onclick="loadContactData([[${c.id}]])"><i class="fa-solid fa-eye h-6 w-6" style="color: #b6fb98;"></i></button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
 
-            <!-- Pagination -->
-            <div data-th-unless="${pageContacts.empty}" class="pagination_container mt-4 text-center">
-              <nav aria-label="Page navigation example">
-                <ul class="inline-flex -space-x-px text-base h-10">
-                  <!-- Previous Pagination -->
-                  <li data-th-unless="${pageContacts.first}">
-                    <a data-th-href="@{'/user/contacts/search?size=' + ${pageSize} + '&page='+${pageContacts.number - 1} + '&field=' + ${contactsSearchForm.field} + '&value=' + ${contactsSearchForm.value}}" href="#" class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</a>
-                  </li>
-                  <!-- Number Pagination -->
-                  <li data-th-each="index : ${#numbers.sequence(0, pageContacts.totalPages - 1)}">
-                    <a data-th-href="@{'/user/contacts/search?size=' + ${pageSize} + '&page='+${index} + '&field=' + ${contactsSearchForm.field} + '&value=' + ${contactsSearchForm.value}}" data-th-classappend="${index==pageContacts.number? 'bg-blue-50  dark:bg-gray-900' : 'bg-white dark:bg-gray-800'}" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                      <span data-th-text="${index + 1}"></span>
-                    </a>
-                  </li>
-                  <!-- Next Pagination --> 
-                  <li data-th-unless="${pageContacts.last}">
-                    <a data-th-href="@{'/user/contacts/search?size=' + ${pageSize} + '&page='+${pageContacts.number + 1} + '&field=' + ${contactsSearchForm.field} + '&value=' + ${contactsSearchForm.value}}" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
-                  </li>
-                </ul>
-              </nav>
+              <!-- Pagination -->
+              <div  data-th-unless="${pageContacts.empty}" class="pagination_container mt-4 text-center">
+                <nav aria-label="Page navigation example">
+                  <ul class="inline-flex -space-x-px text-base h-10">
+                    <!-- Previous Pagination -->
+                    <li data-th-unless="${pageContacts.first}">
+                      <a data-th-href="@{'/user/contacts?size='+${pageSize}+'&page=' + ${pageContacts.number-1}}" href="#" class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</a>
+                    </li>
+                    <!-- Number Pagination -->
+                    <li data-th-each="index : ${#numbers.sequence(0, pageContacts.totalPages - 1)}">
+                      <a data-th-href="@{'/user/contacts?size='+${pageSize}+'&page='+${index}}" data-th-classappend="${index==pageContacts.number? 'bg-blue-50  dark:bg-gray-900' : 'bg-white dark:bg-gray-800'}" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                        <span data-th-text="${index + 1}"></span>
+                      </a>
+                    </li>
+                    <!-- Next Pagination -->
+                    <li data-th-unless="${pageContacts.last}">
+                      <a data-th-href="@{'/user/contacts?size='+${pageSize}+'&page=' + ${pageContacts.number+1}}" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+                <!-- For No result found -->
+                <h1 
+                    class="text-4xl text-red-700 text-center py-4" 
+                    data-th-if="${pageContacts.empty}" 
+                >
+                    No Result Found
+                </h1>
+
             </div>
-            <h1 
-              class="text-4xl text-red-700 text-center py-4" 
-              data-th-if="${pageContacts.empty}" 
-            >
-              No Result Found
-            </h1>
           </div>
         </div>
-
+        <div data-th-replace="~{user/contacts_modals :: contact}"></div>
       </div>
     </div>
 
+    <script data-th-src="@{'/js/contacts.js'}"></script>
+
     <script>
-      console.log("this is the search page");
+      console.log("This is the profile page");
     </script>
   </body>
 </html>
