@@ -39,6 +39,23 @@ function closeContactModal() {
         console.log(data);
         document.querySelector("#contact_name").innerHTML = data.name;
         document.querySelector("#contact_email").innerHTML = data.email;
+        document.querySelector("#contact_phone").innerHTML = data.phoneNumber;
+        document.querySelector("#contact_address").innerHTML = data.address;
+        document.querySelector("#contact_about").innerHTML = data.description;
+        document.querySelector("#contact_image").src = data.picture; 
+        
+        const contactFavorite = document.querySelector("#contact_favorite"); 
+        if(data.favorite) {
+            contactFavorite.innerHTML = 
+            "<i class='fas fa-star text-yellow-400'></i> <i class='fas fa-star text-yellow-400'></i> <i class='fas fa-star text-yellow-400'></i> <i class='fas fa-star text-yellow-400'></i> <i class='fas fa-star text-yellow-400'> </i>";
+    } else {
+        contactFavorite.innerHTML = "Not Favorite";
+        }
+ 
+        document.querySelector("#contact_website").href = data.websiteLink;
+        document.querySelector("#contact_website").innerHTML = data.websiteLink;
+        document.querySelector("#contact_linkedIn").href = data.linkedinLink;
+        document.querySelector("#contact_linkedIn").innerHTML = data.linkedinLink;
         openContactModal();
     } catch (error) {
         console.log("Error :" + error);
