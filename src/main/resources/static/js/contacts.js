@@ -63,7 +63,7 @@ function closeContactModal() {
     }
 }
 
-// delete Contact
+// delete Contact sweet alert animation
 
 async function deleteContact(id) {
     Swal.fire({

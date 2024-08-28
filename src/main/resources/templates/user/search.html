@@ -86,12 +86,12 @@
                       </div>
                     </td>
                     <td>
-                      <a href="#"><i class="fa-solid fa-pen-nib h-6 w-6" style="color: #b6fb98;"></i></a>
-                      <a href="#"><i class="fa-solid fa-trash h-6 w-6" style="color: #b6fb98;"></i></a>
+                      <a data-th-href="@{'/user/contacts/view/'+*{id}}"><i class="fa-solid fa-pen-nib h-6 w-6" style="color: #b6fb98;"></i></a>
+                      <button th:onclick="deleteContact([[${c.id}]])"><i class="fa-solid fa-trash h-6 w-6" style="color: #b6fb98;"></i></button> 
                       <button th:onclick="loadContactData([[${c.id}]])"><i class="fa-solid fa-eye h-6 w-6" style="color: #b6fb98;"></i></button>
-                    </td>
+                    </td> 
                   </tr>
-                </tbody>
+                </tbody> 
               </table>
 
               <!-- Pagination -->

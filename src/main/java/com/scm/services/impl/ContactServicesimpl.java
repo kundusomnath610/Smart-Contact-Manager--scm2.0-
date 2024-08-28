@@ -21,12 +21,13 @@ public class ContactServicesimpl implements ContactServices {
 
     @Autowired
     private ContactRepo contactRepo;
+    private Contacts contactsold;
 
     @Override
     public void delete(String id) {
 
         var contact = contactRepo.findById(id).orElseThrow(()-> 
-            new ResourceNotFoundException("Contact Not Found with given id" + contactRepo));
+        new ResourceNotFoundException("Contact Not Found with given id" + contactRepo));
         contactRepo.delete(contact);
     }
 
@@ -57,8 +58,20 @@ public class ContactServicesimpl implements ContactServices {
 
     @Override
     public Contacts update(Contacts contacts) {
-        // TODO Auto-generated method stub
-        return null;
+        var contactOld = contactRepo.findById(contacts.getId())
+        .orElseThrow(() -> new ResourceNotFoundException("Contact not found"));
+        contactOld.setName(contacts.getName());
+        contactOld.setEmail(contacts.getEmail());
+        contactOld.setPhoneNumber(contacts.getPhoneNumber());
+        contactOld.setAddress(contacts.getAddress());
+        contactOld.setDescription(contacts.getDescription());
+        contactOld.setPicture(contacts.getPicture());
+        contactOld.setFavorite(contacts.isFavorite());
+        contactOld.setWebsiteLink(contacts.getWebsiteLink());
+        contactOld.setLinkedinLink(contacts.getLinkedinLink());
+        contactOld.setCloudinaryImagePublicId(contacts.getCloudinaryImagePublicId());
+
+        return contactRepo.save(contactOld);
     }
 
      /*

@@ -38,9 +38,11 @@ public class ContactForm {
     private String websiteLink;
     private String linkedinLink;
 
-    public String cloudinaryImagePublicId;
+    //public String cloudinaryImagePublicId;
 
 
-    private MultipartFile contactImage;
+    private MultipartFile contactImage; 
+
+    private String picture;
 
 }
