@@ -29,6 +29,7 @@ function closeContactModal() {
     contactModal.hide(); // use hide to close the view of contact modal..
 }
 
+// For load data and view the contact Details
  async function loadContactData(id) {
     console.log(id);
 
@@ -66,7 +67,7 @@ function closeContactModal() {
 
 async function deleteContact(id) {
     Swal.fire({
-        title: "Are you sure you want to delete this contact?",
+        title: "Are you sure to Delete this Contact?",
         text: "You won't be able to revert this!",
         icon: "warning",
         showCancelButton: true,
