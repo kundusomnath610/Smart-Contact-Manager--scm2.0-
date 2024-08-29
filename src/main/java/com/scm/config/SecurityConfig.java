@@ -53,6 +53,9 @@ public class SecurityConfig {
     @Autowired
     private OAuthAuthenicationSuccessHandler handler;
 
+    @Autowired
+    private AuthenticationFailureHandler authenticationFailureHandler;
+
     @Bean
     public DaoAuthenticationProvider authenticationProvider () {
 
@@ -105,16 +108,20 @@ public class SecurityConfig {
                 
             // });
 
-        });
+            formLogin.failureHandler(authenticationFailureHandler);
+            });
+
+            
 
         httpSecurity.csrf(AbstractHttpConfigurer::disable);
+
+        //OAuth Config
         httpSecurity.logout(logoutForm -> {
             logoutForm.logoutUrl("/do-logout");
             logoutForm.logoutSuccessUrl("/login?logout=true");
         });
 
         // OAuth Configaration...
-
         httpSecurity.oauth2Login(oauth -> {
             oauth.loginPage("/login");
             oauth.successHandler(handler); 

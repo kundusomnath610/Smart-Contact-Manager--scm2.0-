@@ -78,8 +78,6 @@ public class contactController {
             return "user/add_contact";
         }
 
-
-
         //Process the form
         String username = Helper.getEmailOfLoggedInUser(authentication);
 
@@ -87,11 +85,6 @@ public class contactController {
         User user = userServices.getUserByEmail(username);
 
         //logger.info("file information : {}", contactForm.getContactImage().getOriginalFilename());
-
-        //Image File upload..
-        String filename = UUID.randomUUID().toString();
-
-       String fileUrl = imageServices.uploadimage(contactForm.getContactImage(), filename); 
 
         Contacts contact = new Contacts();
 
@@ -104,15 +97,20 @@ public class contactController {
         contact.setLinkedinLink(contactForm.getLinkedinLink());
         contact.setWebsiteLink(contactForm.getWebsiteLink());
         contact.setUser(user);
-        contact.setPicture(fileUrl);
-        contact.setCloudinaryImagePublicId(fileUrl);
-        contactServices.save(contact);
 
+        //Image File upload..
+        if(contactForm.getContactImage() != null && !contactForm.getContactImage().isEmpty()) {
+            String filename = UUID.randomUUID().toString();
+            String fileUrl = imageServices.uploadimage(contactForm.getContactImage(), filename); 
+            contact.setPicture(fileUrl);
+            contact.setCloudinaryImagePublicId(fileUrl);
+        }
+
+        contactServices.save(contact); // Save the contactin DataBase
         // Passing the Add Contact Data
         System.out.println(contactForm);
 
-        //Contact Picture URL..
-
+        //Message to successfully add the contact
         session.setAttribute("message",
                 Message.builder()
                         .content("You have successfully added a new contact")
@@ -224,6 +222,7 @@ public class contactController {
             contactForm.setWebsiteLink(contact.getWebsiteLink());
             contactForm.setLinkedinLink(contact.getLinkedinLink());
             contactForm.setPicture(contact.getPicture());
+
             model.addAttribute("contactForm", contactForm);
             model.addAttribute("contactId", contactId);
 

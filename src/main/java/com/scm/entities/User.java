@@ -18,7 +18,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -55,8 +54,8 @@ public class User implements UserDetails{
     private String profilePic;
 
     private String phoneNumber;
+
     // Information
-    
     @Getter(value = AccessLevel.NONE)
     private boolean enabled = false;
     private boolean emailVarified = false;
