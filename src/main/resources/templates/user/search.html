@@ -20,39 +20,54 @@
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-5">
               
               <!-- Search Form -->
-              <form data-th-object="${contactsSearchForm}" data-th-action="@{'/user/contacts/search'}">
-                <div class="flex space-x-4 items-center justify-start flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-4 bg-white dark:bg-gray-900">
+              <div class="flex space-x-3 rounded">
 
-                  <!-- Select Box -->
-                  <div>
-                    <select data-th-field="*{field}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                      <option selected value="">Select Field</option>
-                      <option value="name">Name</option>
-                      <option value="email">Email</option>
-                      <option value="phone">Phone</option>
-                    </select>
-                  </div>
-
-                  <!-- Search Input -->
-                  <label for="table-search" class="sr-only">Search</label>
-                  <div class="relative">
-                    <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
-                      <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                      </svg>
+                <form data-th-object="${contactsSearchForm}" data-th-action="@{'/user/contacts/search'}">
+                  <div class="flex space-x-4 items-center justify-start flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-4 bg-white dark:bg-gray-900">
+  
+                    <!-- Select Box -->
+                    <div>
+                      <select data-th-field="*{field}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option selected value="">Select Field</option>
+                        <option value="name">Name</option>
+                        <option value="email">Email</option>
+                        <option value="phone">Phone</option>
+                      </select>
                     </div>
-                    <input data-th-field="*{value}" type="text" id="table-search-users" class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for users">
+  
+                    <!-- Search Input -->
+                    <label for="table-search" class="sr-only">Search</label>
+                    <div class="relative">
+                      <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                        </svg>
+                      </div>
+                      <input data-th-field="*{value}" type="text" id="table-search-users" class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for users">
+                    </div>
+  
+                    <!-- Search Button -->
+                    <div>
+                      <button type="submit" class="px-3 py-2 bg-gray-800 text-white dark:bg-blue-600 rounded">Search</button>
+                    </div>
                   </div>
+                </form>
 
-                  <!-- Search Button -->
-                  <div>
-                    <button type="submit" class="px-3 py-2 bg-gray-800 text-white dark:bg-blue-600 rounded">Search</button>
-                  </div>
+                <div>
+                  <button type="button" 
+                    onclick="Exportdata()"
+                    class="px-3 py-2 bg-gray-800
+                    text-white dark:bg-green-600 rounded"> 
+                    Export Contact
+                </button>
                 </div>
-              </form>
+
+              </div>
+
 
               <!-- Contacts Table -->
-              <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+              <table id="contact_table"
+                class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                   <tr>
                     <th scope="col" class="px-6 py-3">Name</th>
@@ -130,10 +145,23 @@
       </div>
     </div>
 
+     <!-- Foe download the contacts data in a excel form-->
+     <script src="https://cdn.jsdelivr.net/npm/@linways/table-to-excel@1.0.4/dist/tableToExcel.min.js"></script>
+
     <script data-th-src="@{'/js/contacts.js'}"></script>
 
+    <!-- Function the export data call -->
     <script>
-      console.log("This is the profile page");
+        function Exportdata() {
+
+        TableToExcel.convert(document.getElementById("contact_table"), {
+          name: "Contact.xlsx",
+            sheet: {
+            name : "sheet 1"
+            },
+          });
+        }
+
     </script>
   </body>
 </html>
