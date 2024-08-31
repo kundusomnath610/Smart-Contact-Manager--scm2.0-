@@ -73,7 +73,7 @@ public class UserServicesImpl implements UserServices {
         user2.setPassword(user.getPassword());
         user2.setPhoneNumber(user.getPhoneNumber());
         user2.setAbout(user.getAbout());
-        user2.setProfilePic(user.getProfilePic());
+        user2.setProfile(user.getProfile());
         user2.setEnabled(user.isEnabled());
         user2.setEmailVarified(user.isEmailVarified());
         user2.setPhoneNumberVarified(user.isPhoneNumberVarified());

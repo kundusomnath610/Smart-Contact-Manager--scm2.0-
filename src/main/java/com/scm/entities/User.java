@@ -50,8 +50,7 @@ public class User implements UserDetails{
 
     @Column(length = 1000)
     private String about;
-
-    private String profilePic;
+    private String profile;
 
     private String phoneNumber;
 

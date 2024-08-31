@@ -65,7 +65,7 @@ public class OAuthAuthenicationSuccessHandler implements AuthenticationSuccessHa
             // google attributes
 
             user.setEmail(oauthUser.getAttribute("email").toString());
-            user.setProfilePic(oauthUser.getAttribute("picture").toString());
+            user.setProfile(oauthUser.getAttribute("picture").toString());
             user.setName(oauthUser.getAttribute("name").toString());
             user.setProviderUserId(oauthUser.getName());
             user.setProvider(Provider.GOOGLE);
@@ -82,7 +82,7 @@ public class OAuthAuthenicationSuccessHandler implements AuthenticationSuccessHa
             String providerUserId = oauthUser.getName();
 
             user.setEmail(email);
-            user.setProfilePic(picture);
+            user.setProfile(picture);
             user.setName(name);
             user.setProviderUserId(providerUserId);
             user.setProvider(Provider.GITHUB);
