@@ -8,7 +8,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title data-th-replace="${title}">SCM</title>
+    <title data-th-replace="${title}"></title>
 
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"
@@ -40,17 +40,15 @@
     </div>
 
     <!-- main content -->
-    <div class="p-4">
+    <div class="">
       <section data-th-replace="${content}"></section>
     </div>
-    <!-- flow bite content -->
 
     <!-- common footer -->
-    <!-- <footer class="p-4">Footer: Learn Code With Durgesh</footer> -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script data-th-src="@{'/js/script.js'}"></script>
     <th:block data-th-replace="${script}"></th:block>
   </body>
-</html>
+</html> 

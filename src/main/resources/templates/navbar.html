@@ -28,10 +28,12 @@
       <!-- dark light theme button -->
       <button
         id="theme_change_button"
-        class="bg-gray-800 px-3 py-2 rounded-lg dark:bg-gray-600"
+        class="bg-gray-200 px-3 py-2 rounded-lg dark:bg-gray-600"
       >
         <i class="fa-solid fa-circle-half-stroke"></i> <span>Light</span>
       </button>
+      
+      <!-- For Login Button connect to Controller-->
       <a
         data-th-href="@{'/login'}"
         type="button"
@@ -39,6 +41,8 @@
       >
         Login
       </a>
+
+      <!-- For Register Button connect to Controller-->
       <a
         data-th-href="@{'/register'}"
         type="button"
