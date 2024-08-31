@@ -76,6 +76,9 @@ public class User implements UserDetails{
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roleList = new ArrayList<>();
 
+    // This is for token generating verfication
+    private String emailToken;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 

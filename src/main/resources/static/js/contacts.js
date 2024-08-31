@@ -78,8 +78,12 @@ async function deleteContact(id) {
     }).then((result) => {
         if (result.isConfirmed) {
             // If confirmed, proceed with the deletion
+            Swal.fire({
+                title: "Contact Deleted",
+                icon: "ok"
+            });
             const url = `${baseUrl}/user/contacts/delete/` + id;
-            window.location.replace(url);
+            window.location.replace(url); 
         } else {
             // If canceled, show a message or simply do nothing
             Swal.fire({

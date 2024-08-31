@@ -21,7 +21,6 @@ public class ContactServicesimpl implements ContactServices {
 
     @Autowired
     private ContactRepo contactRepo;
-    private Contacts contactsold;
 
     @Override
     public void delete(String id) {

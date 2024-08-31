@@ -11,10 +11,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.scm.entities.User;
-import com.scm.entities.User.UserBuilder;
 import com.scm.helpers.AppConstants;
+import com.scm.helpers.Helper;
 import com.scm.helpers.ResourceNotFoundException;
 import com.scm.repositires.Userrepo;
+import com.scm.services.EmailServices;
 import com.scm.services.UserServices;
 
 @Service
@@ -26,6 +27,9 @@ public class UserServicesImpl implements UserServices {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private EmailServices emailServices;
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -44,8 +48,14 @@ public class UserServicesImpl implements UserServices {
         user.setRoleList(List.of(AppConstants.ROLE_USER));
 
         logger.info(user.getProvider().toString());
+        String emailToken = UUID.randomUUID().toString();
+        user.setEmailToken(emailToken);
+        User savedUser =  userrepo.save(user);
+        String emailLink = Helper.getEmailVerificationLink(emailToken);
+        emailServices.sendEmail(savedUser.getEmail(), "Verify Account : Sent by Smart Contact Manager", emailLink);
 
-        return userrepo.save(user);
+        return savedUser;
+
     }
 
     @Override
