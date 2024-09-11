@@ -10,6 +10,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,6 +22,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -43,15 +45,16 @@ public class User implements UserDetails{
     private String name;
 
     @Column(unique = true, nullable = false)
+    // @UniqueElements
     private String email;
 
     @Getter(value = AccessLevel.NONE)
     private String password;
 
-    @Column(length = 1000)
+    @Column(length = 1000)  
     private String about;
     private String profile;
-
+    // @UniqueElements
     private String phoneNumber;
 
     // Information
