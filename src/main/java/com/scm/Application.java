@@ -1,6 +1,5 @@
 package com.scm;
 
-import com.scm.config.AppConfig;
 import com.scm.entities.User;
 import com.scm.helpers.AppConstants;
 import com.scm.repositires.Userrepo;
@@ -8,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
